@@ -152,7 +152,12 @@ export default function Login() {
         await disconnect();
       }
       const { account, chain } = await connectAsync({
-        connector: new MetaMaskConnector(),
+        connector: new MetaMaskConnector({
+          options: {
+            shimDisconnect: true,
+            UNSTABLE_shimOnConnectSelectAccount: true,
+          },
+        }),
       });
       if (account) {
         const qry = query(
